@@ -1,6 +1,4 @@
 const { resolve } = require('path')
-//const webpack = require('webpack')
-//const { merge } = require('lodash')
 
 const __approot = resolve(__dirname, '../'),
 			__src 		= resolve(__approot, 'src/'),
