@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "json-patch": "^0.7.0",
+    "json-pointer": "^0.6.0",
+    "lodash.defaultsdeep": "^4.6.0",
+    "parse-json": "^3.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-es2015": "^6.24.1",
+    "mocha": "^4.0.1"
+  },
+  "main": "dist/index.webpack.js",
+  "name": "json-file",
+  "scripts": {
+    "build": "webpack --config build/webpack.config.js",
+    "test": "mocha test/index.js"
+  },
+  "version": "0.0.1-beta.1"
+}
