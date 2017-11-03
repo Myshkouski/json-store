@@ -1,68 +1,26 @@
-import { readFile, writeFile, access, watch, constants } from 'fs'
+import { readFile, writeFile, watch } from 'fs'
+import { resolve } from 'path'
 import EventEmitter from 'events'
+import Schedule from './schedule'
 import * as symbols from './symbols'
+import emitSafe from './emitSafe'
+import defaults from 'lodash.defaultsdeep'
 
-const {
-  F_OK,
-  R_OK,
-  W_OK
-} = constants
-
-function _emitSafe(...args) {
-  return new Promise(done => {
-    process.nextTick(() => this.emit(...args))
-
-    done()
-  })
-}
-
-function checkAccess(filename, mode) {
-  return new Promise((done, fail) => {
-    access(filename, mode, err => err ? fail(err) : done(filename))
-  })
-}
-
-function read(filename) {
-  return new Promise((done, fail) => {
-    readFile(filename, (err, data) => {
-      if(err) {
-        fail(err)
-      }
-
-      try {
-        done(this[symbols.DESERIALIZE](data))
-      } catch(err) {
-        fail(err)
-      }
-    })
-  })
-}
-
-function write(filename, data) {
-  return new Promise((done, fail) => {
-    writeFile(filename, this[symbols.SERIALIZE](data), err => {
-      err ? fail(err) : done()
-    })
-  })
-}
-
-function _sync(deferred) {
-  if(this._pesisted && !this._syncing) {
-    this._syncing = false
-
-    return deferred
-      .then(data => this[symbols.STORE] = data)
+function _sync(task) {
+  this._syncing = true
+  const p = this[symbols.SCHEDULE].deferred(() =>
+    new Promise(task)
       .then(() => {
         this._syncing = false
-        return _emitSafe.call(this, 'synced')
+        return emitSafe.call(this, 'synced')
       })
       .catch(err => {
         this._syncing = false
         throw err
       })
-  } else {
-    return Promise.resolve()
-  }
+  )
+
+  return p//.catch(err => console.error('!'))
 }
 
 class FileStore extends EventEmitter {
@@ -71,32 +29,50 @@ class FileStore extends EventEmitter {
 
     this[symbols.STORE] = null
     this._watcher = null
-    this._options = options
 
-    this[symbols.SERIALIZE] = options.serialize.bind(this)
-    this[symbols.DESERIALIZE] = options.deserialize.bind(this)
+    this[symbols.SCHEDULE] = new Schedule()
+    //this[symbols.SCHEDULE].on('error', err => this.emit('error', err))
 
-    if(this._options.filename) {
+    this[symbols.SERIALIZE] = options.serialize//.bind(this)
+    this[symbols.DESERIALIZE] = options.deserialize//.bind(this)
+
+    this._options = {
+      sync: options.sync
+    }
+
+    if(options.filename) {
+      this._options.filename = resolve(process.cwd(), options.filename)
       this._pesisted = true
       this._syncing = false
     }
 
-    if(this._pesisted && this._options.sync) {
-      this.load(this._options.filename).catch(err => _emitSafe.call(this, 'error', err))
+    if(this._pesisted && options.sync) {
+      this.load().catch(err => emitSafe.call(this, 'error', err))
     }
   }
 
-  load() {
-    return _sync.call(this,
-      read.call(this, this._options.filename)
-        .then(data => this[symbols.STORE] = data)
-    )
+  load(filename = this._options.filename) {
+    return _sync.call(this, (done, fail) => {
+      readFile(filename, (err, buffer) => {
+        if(err) {
+          fail(err)
+        }
+
+        try {
+          done(defaults(this[symbols.STORE], this[symbols.DESERIALIZE](buffer.toString())))
+        } catch(err) {
+          fail(err)
+        }
+      })
+    })
   }
 
-  save() {
-    return _sync.call(this,
-      write.call(this, this._options.filename, this[symbols.STORE])
-    )
+  save(filename = this._options.filename) {
+    return _sync.call(this, (done, fail) => {
+      writeFile(filename, this[symbols.SERIALIZE](this[symbols.STORE]), err => {
+        err ? fail(err) : done()
+      })
+    })
   }
 
   watch() {
@@ -105,10 +81,10 @@ class FileStore extends EventEmitter {
         this._options.filename = filename
 
         this.unwatch()
-        this.load().catch(err => _emitSafe.call(this, 'error', err)).then(() => this.watch())
+        this.load().catch(err => emitSafe.call(this, 'error', err)).then(() => this.watch())
       } else if(event == 'change') {
         this.unwatch()
-        this.load().catch(err => _emitSafe.call(this, 'error', err)).then(() => this.watch())
+        this.load().catch(err => emitSafe.call(this, 'error', err)).then(() => this.watch())
       }
     })
 
@@ -117,6 +93,7 @@ class FileStore extends EventEmitter {
 
   unwatch() {
     this._watcher.close()
+    this._watcher = null
     return this
   }
 }
