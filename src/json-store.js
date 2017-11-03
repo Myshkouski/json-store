@@ -1,14 +1,18 @@
 import FileStore from './file-store'
 import * as symbols from './symbols'
+import parseJSON from 'parse-json'
 import jsonPatch from 'json-patch'
-import jsonPointer from 'jsonpointer'
+import jsonPointer from 'json-pointer'
+import emitSafe from './emitSafe'
 
-class JsonStore extends FileStore {
+class JSONStore extends FileStore {
   constructor(options) {
-    options.serialize = JSON.stringify
-    options.deserialize = JSON.parse
+    super(Object.assign({}, options, {
+      serialize: obj => JSON.stringify(obj),
+      deserialize: string => parseJSON(string)
+    }))
 
-    super(options)
+    this[symbols.STORE] = {}
   }
 
   set(path, value) {
@@ -31,11 +35,11 @@ class JsonStore extends FileStore {
     jsonPatch.apply(this[symbols.STORE], ops)
 
     if(this._options.sync) {
-      this.save(this._options.filename).catch(err => _emitSafe.call(this, 'error', err))
+      this.save().catch(err => emitSafe.call(this, 'error', err))
     }
 
     return this
   }
 }
 
-export default JsonStore
+export default JSONStore

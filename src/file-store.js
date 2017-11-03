@@ -58,11 +58,7 @@ class FileStore extends EventEmitter {
           fail(err)
         }
 
-        try {
-          done(defaults(this[symbols.STORE], this[symbols.DESERIALIZE](buffer.toString())))
-        } catch(err) {
-          fail(err)
-        }
+        done(defaults(this[symbols.STORE], this[symbols.DESERIALIZE](buffer.toString())))
       })
     })
   }
