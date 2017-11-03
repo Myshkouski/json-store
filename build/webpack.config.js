@@ -1,6 +1,6 @@
 const { resolve } = require('path')
-const webpack = require('webpack')
-const { merge } = require('lodash')
+//const webpack = require('webpack')
+//const { merge } = require('lodash')
 
 const __approot = resolve(__dirname, '../'),
 			__src 		= resolve(__approot, 'src/'),
@@ -13,7 +13,9 @@ const sharedConfig = {
 		global: false,
 		__filename: false,
 		__dirname: false,
-		setImmediate: false
+		setImmediate: false,
+		Buffer: false,
+		process: false
 	},
 
 	devtool: 'sourcemap',
@@ -32,6 +34,7 @@ const sharedConfig = {
 		rules: [
 			{
 				test: /\.js$/,
+				exclude: /node_modules/,
 				loader: 'babel-loader',
 				options: {
 					presets: [
