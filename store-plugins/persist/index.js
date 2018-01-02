@@ -1,6 +1,6 @@
 import defaults from 'lodash.defaultsdeep'
 
-import * as symbols from '@alexeimyshkouski/stor/symbols'
+import * as symbols from '@alexeimyshkouski/store/symbols'
 import applyHooks from '@alexeimyshkouski/store/applyHooks'
 
 import AsyncStore from '@alexeimyshkouski/store-async-plugin'

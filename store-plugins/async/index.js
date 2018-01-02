@@ -1,4 +1,4 @@
-import * as symbols from '@alexeimyshkouski/stor/symbols'
+import * as symbols from '@alexeimyshkouski/store/symbols'
 import Schedule from './schedule'
 
 export default () => {
