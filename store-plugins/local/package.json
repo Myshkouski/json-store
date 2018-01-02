@@ -1,5 +1,10 @@
 {
   "main": "index.js",
   "name": "@alexeimyshkouski/store-local-plugin",
-  "version": "0.1.0"
+  "version": "0.1.0-package.1",
+  "dependencies": {
+    "@alexeimyshkouski/store": "^0.1.0",
+    "@alexeimyshkouski/store-json-plugin": "0.1.0-package.1",
+    "@alexeimyshkouski/store-persist-plugin": "^0.1.0"
+  }
 }

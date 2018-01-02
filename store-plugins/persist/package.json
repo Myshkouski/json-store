@@ -1,5 +1,10 @@
 {
   "main": "index.js",
   "name": "@alexeimyshkouski/store-persist-plugin",
-  "version": "0.1.0"
+  "version": "0.1.1",
+  "dependencies": {
+    "@alexeimyshkouski/store": "^0.1.0",
+    "@alexeimyshkouski/store-async-plugin": "^0.1.0",
+    "lodash.defaultsdeep": "^4.6.0"
+  }
 }
