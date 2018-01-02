@@ -1,0 +1,8 @@
+{
+  "main": "index.js",
+  "name": "@alexeimyshkouski/store-json-plugin",
+  "version": "0.1.0-package.1",
+  "dependencies": {
+    "json-pointer": "^0.6.0"
+  }
+}

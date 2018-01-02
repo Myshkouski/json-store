@@ -1,0 +1,12 @@
+{
+  "name": "@alexeimyshkouski/store-vuex",
+  "version": "0.0.1",
+  "description": "Vuex integration",
+  "main": "index.js",
+  "keywords": [
+    "vuex",
+    "store"
+  ],
+  "author": "Alexei Myshkouski",
+  "license": "ISC"
+}

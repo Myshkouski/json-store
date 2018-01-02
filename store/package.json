@@ -1,0 +1,23 @@
+{
+  "author": "Alexei Myshkouski",
+  "main": "index.js",
+  "name": "@alexeimyshkouski/store",
+  "version": "0.1.0",
+  "description": "Extensible store abstraction",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Myshkouski/stor.git"
+  },
+  "keywords": [
+    "store",
+    "storage"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Myshkouski/stor/issues"
+  },
+  "homepage": "https://github.com/Myshkouski/stor#readme"
+}

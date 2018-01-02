@@ -1,6 +1,6 @@
 const PENDING = Symbol('PENDING')
 
-class Schedule {
+export default class Schedule {
   constructor() {
     this[PENDING] = Promise.resolve()
   }
@@ -11,17 +11,15 @@ class Schedule {
       Promise.resolve(task())
     ])
 
-    this[PENDING] = p.catch(err => {})
+    // this[PENDING] = p.catch(err => {})
 
     return p
   }
 
   deferred(task) {
     const p = this[PENDING].then(r => task())
-    this[PENDING] = p.catch(err => {})
+    // this[PENDING] = p.catch(err => {})
 
     return p
   }
 }
-
-export default Schedule
