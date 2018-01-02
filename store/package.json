@@ -2,7 +2,7 @@
   "author": "Alexei Myshkouski",
   "main": "index.js",
   "name": "@alexeimyshkouski/store",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Extensible store abstraction",
   "scripts": {
     "test": "node test.js"
