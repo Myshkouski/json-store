@@ -1,7 +1,7 @@
 import jsonPointer from 'json-pointer'
 
-import * as symbols from '@alexeimyshkouski/store/symbols'
-import applyHooks from '@alexeimyshkouski/store/applyHooks'
+import * as symbols from '@alexeimyshkouski/store/dist/symbols'
+import applyHooks from '@alexeimyshkouski/store/dist/applyHooks'
 
 export default Store => {
   Object.assign( Store.prototype, {

@@ -1,5 +1,4 @@
-import * as symbols from '@alexeimyshkouski/store/symbols'
-import applyHooks from '@alexeimyshkouski/store/applyHooks'
+import * as symbols from '@alexeimyshkouski/store/dist/symbols'
 
 import PersistedStore from '@alexeimyshkouski/store-persist-plugin'
 import JsonStore from '@alexeimyshkouski/store-json-plugin'

@@ -1,10 +1,23 @@
 {
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "src/index.js",
   "name": "@alexeimyshkouski/store-cookie-plugin",
-  "version": "0.1.0-package.1",
+  "version": "0.2.1",
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "prepare": "npm run build",
+    "test": "node test.js"
+  },
   "dependencies": {
-    "@alexeimyshkouski/store": "^0.1.0",
-    "@alexeimyshkouski/store-json-plugin": "0.1.0-package.1",
-    "@alexeimyshkouski/store-persist-plugin": "^0.1.0"
+    "@alexeimyshkouski/store": "^0.2.1",
+    "@alexeimyshkouski/store-json-plugin": "^0.2.1",
+    "@alexeimyshkouski/store-persist-plugin": "^0.2.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "rollup": "^0.53.3",
+    "rollup-plugin-babel": "^3.0.3"
   }
 }

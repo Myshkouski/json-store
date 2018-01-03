@@ -1,15 +1,18 @@
 {
   "author": "Alexei Myshkouski",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "src/index.js",
   "name": "@alexeimyshkouski/store",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "description": "Extensible store abstraction",
   "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "prepare": "npm run build",
     "test": "node test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Myshkouski/stor.git"
+    "url": "git+https://github.com/Myshkouski/store.git"
   },
   "keywords": [
     "store",
@@ -17,7 +20,14 @@
   ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Myshkouski/stor/issues"
+    "url": "https://github.com/Myshkouski/store/issues"
   },
-  "homepage": "https://github.com/Myshkouski/stor#readme"
+  "homepage": "https://github.com/Myshkouski/store#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "rollup": "^0.53.3",
+    "rollup-plugin-babel": "^3.0.3"
+  }
 }
