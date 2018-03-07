@@ -1,11 +1,11 @@
 {
   "presets": [
-    ["env", {
-      "modules": false,
-      "runtimeHelpers": true
-    }]
+    "env"
   ],
   "plugins": [
-    "transform-runtime"
+    "transform-runtime",
+    "add-module-exports",
+    "transform-es2015-modules-commonjs",
+    "transform-object-rest-spread"
   ]
 }

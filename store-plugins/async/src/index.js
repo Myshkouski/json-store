@@ -1,11 +1,11 @@
-import * as symbols from '@alexeimyshkouski/store/dist/symbols'
+import Store from '@alexeimyshkouski/store'
 import Schedule from './schedule'
 
 export default () => {
   return {
     init() {
-      if ( !this[ symbols.STATE ].schedule ) {
-        this[ symbols.STATE ].schedule = new Schedule()
+      if (!this[Store.symbols.STATE].schedule) {
+        this[Store.symbols.STATE].schedule = new Schedule()
       }
     }
   }

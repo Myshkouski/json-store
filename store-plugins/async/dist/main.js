@@ -232,4 +232,4 @@ module.exports = require("babel-runtime/helpers/createClass");
 /***/ })
 
 /******/ });
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=main.js.map

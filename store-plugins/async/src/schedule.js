@@ -11,14 +11,11 @@ export default class Schedule {
       Promise.resolve(task())
     ])
 
-    // this[PENDING] = p.catch(err => {})
-
     return p
   }
 
   deferred(task) {
     const p = this[PENDING].then(r => task())
-    // this[PENDING] = p.catch(err => {})
 
     return p
   }
