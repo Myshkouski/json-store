@@ -1,4 +1,4 @@
-export const STORE = Symbol('store')
-export const STATE = Symbol('state')
-export const PLUGINS = Symbol('plugins')
-export const HOOKS = Symbol('hooks')
+export const STORE = '_store' // Symbol('store')
+export const STATE = 'state' // Symbol('state')
+export const PLUGINS = '_plugins' // Symbol('plugins')
+export const HOOKS = '_hooks' // Symbol('hooks')

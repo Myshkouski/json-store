@@ -37,19 +37,22 @@ function use(applyPlugin) {
 
 function createStore() {
   function Store(options) {
-    this[symbols.STATE] = {}
+    Object.defineProperty(Store, symbols.STATE, {
+      value: {}
+    })
 
     StoreFactory.applyHooks.call(this, Store, ['init'], options)
   }
 
-  Store[symbols.PLUGINS] = []
-  Store[symbols.HOOKS] = []
+  [symbols.PLUGINS, symbols.HOOKS].forEach(symbol => Object.defineProperty(Store, symbol, {
+    value: []
+  }))
 
   Store.extend = () => {
     const Store = createStore()
 
-    Object.assign(Store, {
-      [symbols.PLUGINS]: Store[symbols.PLUGINS]
+    Object.defineProperty(Store, symbols.PLUGINS, {
+      value: [...Store[symbols.PLUGINS]]
     })
 
     Store[symbols.PLUGINS].forEach(Store.use)
@@ -63,6 +66,9 @@ function createStore() {
 function StoreFactory() {}
 
 StoreFactory.create = () => createStore()
+/**
+  @deprecated >=1.0.0
+*/
 StoreFactory.applyHooks = applyHooks
 StoreFactory.symbols = symbols
 
