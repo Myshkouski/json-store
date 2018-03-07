@@ -2,7 +2,7 @@
   "main": "dist/index.js",
   "module": "src/index.js",
   "name": "@alexeimyshkouski/store-async-plugin",
-  "version": "0.2.3",
+  "version": "0.3.0-beta.1",
   "dependencies": {
     "@alexeimyshkouski/store": "^0.3.0"
   },
